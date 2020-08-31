@@ -57,6 +57,12 @@ $("button#searchButton").click(function( event ) {
 	return;
 });
 
+function clearSearchHTML()
+{
+	$("#searchResultsTitle").html("");
+	$("#searchResults").html("");
+}
+
 function processSearchData(data)
 {
 	$("#searchResultsTitle").html("Search Results for: " + $("input").first().val());
@@ -81,6 +87,7 @@ function processSearchData(data)
 	$("#searchResults").html(resultsHtml);
 	$(".songResult").on("click", (function( event ) {
 		console.log($(this).attr("id"));
+		clearSearchHTML();
 		requestAudioAnalysis($(this).attr("id"));
 	}));;
 }

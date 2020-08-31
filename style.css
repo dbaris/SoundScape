@@ -1,0 +1,30 @@
+body {
+	background: #061c0a;
+	color: white;
+	text-align: center;
+	font-family: "Raleway", sans-serif;
+}
+
+button {
+	font-family: "Raleway", sans-serif;
+}
+
+table {
+	width: 80vw;
+	margin-left: 10vw;
+}
+
+a {
+	color: #09260e;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+footer {
+	background: #99879e;
+	position: absolute;
+	bottom:0;
+	width: 100vw;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+}

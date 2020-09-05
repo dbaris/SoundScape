@@ -1,5 +1,8 @@
 var token = null;
 var token_ttl = 0;
+var default_colors = [ "#473230", "#aa2220", "#ce5327", "#ce8b27", "#D3906E", "#83a35e",
+					   "#488403", "#B9D9B3", "#709C98", "#0C755C", "#2C5154", "#dbcc02"];
+var colors = default_colors;
 
 function refreshAccessToken()
 {
@@ -30,14 +33,45 @@ $( document ).ready(function() {
 });
 
 $("button#searchButton").click(function( event ) {
+	search();
+});
+
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        search();
+    }
+});
+
+function clearSearchHTML()
+{
+	$("#searchResultsTitle").html("");
+	$("#searchResults").html("");
+}
+
+function sanitizeString(input)
+{
+	// function obtained here: https://stackoverflow.com/questions/2794137/sanitizing-user-input-before-adding-it-to-the-dom-in-javascript
+	const suspiciousChars = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+  	};
+  	const reg = /[&<>"'/]/ig;
+  	return input.replace(reg, (match)=>(suspiciousChars[match]));
+}
+
+function search()
+{
 	var currentTime = new Date().getTime();
 	if (currentTime >= token_ttl) {
 		refreshAccessToken();
 	}
 
-	// TODO sanitize input
 	params = {
-		q: $("input").first().val(),
+		q: sanitizeString($("input").first().val()),
 		type: "track"
 	}
 
@@ -55,17 +89,11 @@ $("button#searchButton").click(function( event ) {
 	});
 
 	return;
-});
-
-function clearSearchHTML()
-{
-	$("#searchResultsTitle").html("");
-	$("#searchResults").html("");
 }
 
 function processSearchData(data)
 {
-	$("#searchResultsTitle").html("Search Results for: " + $("input").first().val());
+	$("#searchResultsTitle").html("Search Results for: " + sanitizeString($("input").first().val()));
 	var allTracks = data["tracks"]["items"];
 	var resultsHtml = "<table>"
 	for (var i = 0; i < allTracks.length; i++)
@@ -83,7 +111,7 @@ function processSearchData(data)
 		resultsHtml += track["name"] + "\" by " + artist + "</button></td></tr>";
 	}
 	resultsHtml += "</table>";
-	$("#searchResultsTitle").html("Top " + allTracks.length + " Search Results for: " + $("input").first().val());
+	$("#searchResultsTitle").html("Top " + allTracks.length + " Search Results for: " + sanitizeString($("input").first().val()));
 	$("#searchResults").html(resultsHtml);
 	$(".songResult").on("click", (function( event ) {
 		console.log($(this).attr("id"));
@@ -107,10 +135,26 @@ function requestAudioAnalysis(id)
 	});
 
 	$.get("https://api.spotify.com/v1/audio-analysis/" + id, function(data) {
-		console.log(data);
+		notes = []
+		segments = data["segments"]
+		for (var i = 0; i < segments.length; i++) 
+		{
+			pitches = segments[i]["pitches"];
+			closest_pitch = 0;
+			for (var j = 1; j < 12; j++)
+			{
+				if (pitches[j] > pitches[closest_pitch])
+				{
+					closest_pitch = j;
+				}
+			}
+			notes.push(closest_pitch);
+		}
+		var grid = new SongGrid(notes);
+		grid.display(colors);
 	}).fail(function(data) {
 		console.log(data);
-		$("#grid").html("Error obtaining song analysis data from Spotify API");
+		$("#canvasContainer").html("Error obtaining song analysis data from Spotify API");
 	});
 }
 

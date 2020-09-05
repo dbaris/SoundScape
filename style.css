@@ -1,8 +1,13 @@
 body {
-	background: #061c0a;
-	color: white;
+	background: white;
+	color: black;
 	text-align: center;
 	font-family: "Raleway", sans-serif;
+	width: 100vw;
+}
+
+h1 {
+	font-weight: bold;
 }
 
 button {
@@ -27,4 +32,13 @@ footer {
 	width: 100vw;
 	padding-top: 2vh;
 	padding-bottom: 2vh;
+}
+
+canvas {
+	display: none;
+	background: white;
+	text-align: center;
+	width:80vw;
+	height:60vh;
+	margin-left: 10vw;
 }

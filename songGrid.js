@@ -12,9 +12,11 @@ class SongGrid
 		console.log(row_notes);
 	}
 
-	// rectangle version :)
 	display(colors)
 	{
+		// var container = document.getElementById("canvasContainer");
+		this.canvas.width = document.documentElement.clientWidth * .8;
+		this.canvas.height = document.documentElement.clientWidth * .4;
 		this.display_as_grid(colors);
 	}
 
@@ -36,9 +38,9 @@ class SongGrid
 	{
 		if (this.song_is_long(num_notes))
 		{
-			return 2;
+			return 5;
 		}
-		return 4;
+		return 10;
 
 	}
 	
@@ -51,9 +53,13 @@ class SongGrid
 		var total_notes = this.notes.length;
 		var total_cols = this.get_num_cols(total_notes)
 		var total_rows = total_notes / total_cols;
-		var square_w = this.get_square_size(total_notes)
+		// var square_w = this.get_square_size(total_notes)
 
 		var notes_i = 0;
+		var spacing_w = this.canvas.width / (total_cols * 2 + 1);
+		var spacing_h = this.canvas.height / (total_rows * 2 + 1);
+		var square_w = spacing_h;
+
 		for (var row_i = 0; row_i < total_rows; row_i ++)
 		{
 			for (var col_i = 0; col_i < total_cols; col_i++)
@@ -63,7 +69,10 @@ class SongGrid
 					break;
 				}
 				ctx.fillStyle = colors[this.notes[notes_i]];
-				ctx.fillRect(10 + square_w * col_i + col_i * 2, 10 + row_i * square_w + row_i * 2, square_w, square_w);
+				ctx.fillRect(spacing_w + square_w * col_i + col_i * spacing_w, 
+					         spacing_h + row_i * square_w + row_i * spacing_h, 
+					         square_w, 
+					         square_w);
 				ctx.stroke();
 				notes_i += 1;
 			}
@@ -72,8 +81,12 @@ class SongGrid
 				break;
 			}
 		}
-
 		$("canvas").show();
+	}
+
+	display_as_diamond(colors)
+	{
+
 	}
 
 	// display(colors)

@@ -14,29 +14,35 @@
 
 </head>
 <body>
-	<h1>SoundGrid</h1>
-	<div>
-		<h3>Enter a Song Name</h3>
-		<div>  
-		<input type="text">  
-		<button id="searchButton">Search</button>
-		</div>  
-		<p id="warning"></p>
+	<div id="content">
+		<h1>SoundGrid</h1>
+		<div>
+			<h4>Enter a Song Name:</h4>
+			<input type="text">  
+			<button id="searchButton">Search</button>
+			<p id="warning"></p>
+		</div>
+		<div >
+			<h2 id="searchResultsTitle"></h2>
+			<div id="searchResults"></div>
+		</div>
+		<div id="canvasContainer">
+			<canvas id="colorMenu" width="800" height="70"></canvas>
+			<canvas id="myCanvas" width="800" height="400"></canvas>
+		</div>
 	</div>
-	<div >
-		<h2 id="searchResultsTitle"></h2>
-		<div id="searchResults"></div>
-	</div>
-	<div id="canvasContainer">
-		<canvas id="myCanvas"></canvas>
-	</div>
+	<footer>
+		<div><a href="https://github.com/dbaris/SongGrid">Source Code</a></div>
+		<div>Powered by the <a href="https://developer.spotify.com/">Spotify API</a></div>
+	</footer>
 
 	<script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript" src="colorMenu.js"></script>
 	<script type="text/javascript" src="songGrid.js"></script>
 	<script type="text/javascript" src="main.js"></script>
+	
+
 </body>
-<footer>
-	<div><a href="https://github.com/dbaris/SongGrid">Source Code</a></div>
-	<div>Powered by the <a href="https://developer.spotify.com/">Spotify API</a></div>
-</footer>
+
+
 </html>

@@ -1,5 +1,6 @@
 var token = null;
 var token_ttl = 0;
+var distinctNotes = 12;
 var default_colors = [ "#473230", "#aa2220", "#ce5327", "#ce8b27", "#D3906E", "#83a35e",
 					   "#488403", "#B9D9B3", "#709C98", "#0C755C", "#2C5154", "#dbcc02"];
 var colors = default_colors;
@@ -48,6 +49,12 @@ function clearSearchHTML()
 	$("#searchResults").html("");
 }
 
+function clearGridCanvas()
+{
+	$("#myCanvas").hide();
+	$("#colorMenu").hide();
+}
+
 function sanitizeString(input)
 {
 	// function obtained here: https://stackoverflow.com/questions/2794137/sanitizing-user-input-before-adding-it-to-the-dom-in-javascript
@@ -65,6 +72,7 @@ function sanitizeString(input)
 
 function search()
 {
+	clearGridCanvas();
 	var currentTime = new Date().getTime();
 	if (currentTime >= token_ttl) {
 		refreshAccessToken();
@@ -106,20 +114,27 @@ function processSearchData(data)
 				artist += " and " + track["artists"][j]["name"];
 			}
 		}
-			
-		resultsHtml += "<tr><td><button class='songResult' id='" + track["id"] + "'>\"";
-		resultsHtml += track["name"] + "\" by " + artist + "</button></td></tr>";
+
+		if (i % 2 == 0)
+		{
+			resultsHtml += "<tr>";
+		}
+		resultsHtml += "<td><button class='songResult' id='" + track["id"] + "'>\"";
+		resultsHtml += track["name"] + "\" by " + artist + "</button></td>";
+
+		if (i % 2 != 0) 
+		{
+			resultsHtml += "</tr>";
+		}
 	}
 	resultsHtml += "</table>";
 	$("#searchResultsTitle").html("Top " + allTracks.length + " Search Results for: " + sanitizeString($("input").first().val()));
 	$("#searchResults").html(resultsHtml);
 	$(".songResult").on("click", (function( event ) {
-		console.log($(this).attr("id"));
 		clearSearchHTML();
 		requestAudioAnalysis($(this).attr("id"));
 	}));;
 }
-
 
 function requestAudioAnalysis(id)
 {
@@ -141,7 +156,7 @@ function requestAudioAnalysis(id)
 		{
 			pitches = segments[i]["pitches"];
 			closest_pitch = 0;
-			for (var j = 1; j < 12; j++)
+			for (var j = 1; j < distinctNotes; j++)
 			{
 				if (pitches[j] > pitches[closest_pitch])
 				{
@@ -150,8 +165,14 @@ function requestAudioAnalysis(id)
 			}
 			notes.push(closest_pitch);
 		}
+
 		var grid = new SongGrid(notes);
 		grid.display(colors);
+
+		var colorMenu = new ColorMenu();
+		colorMenu.display(colors);
+
+
 	}).fail(function(data) {
 		console.log(data);
 		$("#canvasContainer").html("Error obtaining song analysis data from Spotify API");

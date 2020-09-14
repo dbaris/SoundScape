@@ -27,11 +27,13 @@ a {
 
 footer {
 	background: #99879e;
-	position: absolute;
 	bottom:0;
 	width: 100vw;
 	padding-top: 2vh;
 	padding-bottom: 2vh;
+	left: 0;
+	height: 8vh;
+	position: fixed;
 }
 
 canvas {
@@ -39,6 +41,21 @@ canvas {
 	background: white;
 	text-align: center;
 	width:80vw;
-	height:60vh;
 	margin-left: 10vw;
+}
+
+#myCanvas {
+	margin-bottom: 20vh;
+}
+
+
+#content {
+	padding: 0;
+	margin: 0;
+}
+
+.search {
+	display: inline-block;
+	padding-left: 5vw;
+	padding-right: 5vw;
 }

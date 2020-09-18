@@ -10,7 +10,7 @@ class ColorMenu
 	display(colors)
 	{
 		this.canvas.width = document.documentElement.clientWidth * .8;
-		
+
 		var ctx = this.canvas.getContext("2d");
 		ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		ctx.beginPath();
@@ -37,13 +37,8 @@ class ColorMenu
 			$("#colorButton_" + i).click(function(){
 			    alert("working!");
 			});
-
-
 		}
-
 	}
-
 }
-
 
 		

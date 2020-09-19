@@ -53,8 +53,23 @@ canvas {
 	margin: 0;
 }
 
+#colorUpdater {
+	display: none;
+	margin-bottom: 1vh;
+}
+
 .search {
 	display: inline-block;
 	padding-left: 5vw;
 	padding-right: 5vw;
 }
+
+#directions {
+	background: #d7d8d6;
+	width: 60vw;
+	padding-left: 10vw;
+	padding-right: 10vw;
+	margin-left: 10vw;
+	margin-top: 10vh;
+	padding-top: 2vh;
+	padding-bottom: 2vh;

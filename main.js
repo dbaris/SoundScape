@@ -3,7 +3,10 @@ var token_ttl = 0;
 var distinctNotes = 12;
 var default_colors = [ "#473230", "#aa2220", "#ce5327", "#ce8b27", "#D3906E", "#83a35e",
 					   "#488403", "#B9D9B3", "#709C98", "#0C755C", "#2C5154", "#dbcc02"];
+var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", 
+		         "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
 var colors = default_colors;
+var notes = []
 
 function refreshAccessToken()
 {
@@ -34,13 +37,8 @@ $( document ).ready(function() {
 });
 
 $("button#searchButton").click(function( event ) {
+	$("#directions").hide();
 	search();
-});
-
-$(document).on('keypress',function(e) {
-    if(e.which == 13) {
-        search();
-    }
 });
 
 function clearSearchHTML()
@@ -51,8 +49,11 @@ function clearSearchHTML()
 
 function clearGridCanvas()
 {
+	notes = [];
+	colors = default_colors;
 	$("#myCanvas").hide();
 	$("#colorMenu").hide();
+	$("#colorUpdater").hide();
 }
 
 function sanitizeString(input)
@@ -136,6 +137,17 @@ function processSearchData(data)
 	}));;
 }
 
+function updateDisplay()
+{	
+	var grid = new SongGrid(notes);
+	grid.display(colors);
+
+	var colorMenu = new ColorMenu();
+	colorMenu.display(colors);
+
+	$("#colorUpdater").show();
+}
+
 function requestAudioAnalysis(id)
 {
 	var currentTime = new Date().getTime();
@@ -150,7 +162,6 @@ function requestAudioAnalysis(id)
 	});
 
 	$.get("https://api.spotify.com/v1/audio-analysis/" + id, function(data) {
-		notes = []
 		segments = data["segments"]
 		for (var i = 0; i < segments.length; i++) 
 		{
@@ -166,11 +177,7 @@ function requestAudioAnalysis(id)
 			notes.push(closest_pitch);
 		}
 
-		var grid = new SongGrid(notes);
-		grid.display(colors);
-
-		var colorMenu = new ColorMenu();
-		colorMenu.display(colors);
+		updateDisplay();
 
 
 	}).fail(function(data) {
@@ -179,5 +186,11 @@ function requestAudioAnalysis(id)
 	});
 }
 
+$("button#updateColor").click(function( event ) {
+	var newColor = sanitizeString($("input#colorInput").first().val());
+	var noteUpdate = $("select#noteSelect").first().val();
+	colors[noteUpdate] = newColor;
+	updateDisplay();
+});
 
 

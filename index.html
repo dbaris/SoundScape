@@ -28,10 +28,35 @@
 		</div>
 		<div id="canvasContainer">
 			<canvas id="colorMenu" width="800" height="70"></canvas>
+			<div id="colorUpdater">
+				<select id="noteSelect">;
+					<option value="0">A</option>
+					<option value="1">A#/Bb</option>
+					<option value="2">B</option>
+					<option value="3">C</option>
+					<option value="4">C#/Db</option>
+					<option value="5">D</option>
+					<option value="6">D#/Eb</option>
+					<option value="7">E</option>
+					<option value="8">F</option>
+					<option value="9">F#/Gb</option>
+					<option value="10">G</option>
+					<option value="11">G#/Ab</option>
+				</select>
+				<input id="colorInput" type="text">";
+		        <button id="updateColor">Update Color</button>;
+			</div>
 			<canvas id="myCanvas" width="400" height="800"></canvas>
 		</div>
 	</div>
+	<div id="directions">
+			<h2>How SoundGrid Works!</h2>
+			<p>SongGrid is a data visualization tool for songs built off the Spotify API, turning audio experiences into a visual canvas. Song data is analyzed and transposed to a color-coded grid.</p>
+
+			<p>Each note from a song is classified as of twelve possible notes -- A, A#/Bb, B, C, C#/Db, D, D#/Eb, E, F, F#/Gb, G, G#/Ab -- and mapped to a unique color. Experiment with different songs and color mappings!</p>
+		</div>
 	<footer>
+
 		<div><a href="https://github.com/dbaris/SongGrid">Source Code</a></div>
 		<div>Powered by the <a href="https://developer.spotify.com/">Spotify API</a></div>
 	</footer>

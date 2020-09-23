@@ -1,0 +1,22 @@
+{
+  "name": "soundgrid",
+  "version": "1.0.0",
+  "description": "SoundGrid is a data visualization tool for songs built off the Spotify API, turning the audio experience of music into a visual canvas. Users search for songs, and the corresponding data is analyzed and transposed to a color-coded grid.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbaris/SoundGrid.git"
+  },
+  "author": "Deanna Baris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dbaris/SoundGrid/issues"
+  },
+  "homepage": "https://github.com/dbaris/SoundGrid#readme",
+  "dependencies": {
+    "axios": "^0.20.0"
+  }
+}

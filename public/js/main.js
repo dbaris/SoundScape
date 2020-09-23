@@ -1,5 +1,3 @@
-var token = null;
-var token_ttl = 0;
 var distinctNotes = 12;
 var default_colors = [ "#473230", "#aa2220", "#ce5327", "#ce8b27", "#D3906E", "#83a35e",
 					   "#488403", "#B9D9B3", "#709C98", "#0C755C", "#2C5154", "#dbcc02"];
@@ -8,32 +6,9 @@ var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D",
 var colors = default_colors;
 var notes = []
 
-function refreshAccessToken()
-{
-	$.ajax({
-		url: "https://accounts.spotify.com/api/token",
-	    headers: {
-		    "Authorization": "Basic " + btoa(config.clientId + ":" + config.clientSecret),
-		},
-		method: "POST",
-	    dataType: "json",
-		data: {
-			grant_type: "client_credentials"
-		},
-		success: function(data){
-	        $("#warning").html("");
-			token = data["access_token"];
-		    token_ttl = new Date().getTime() + data["expires_in"];
-		},
-		error: function(data){
-		   	console.log("Error obtaining token from Spotify API");
-		   	$("#warning").html("Error connecting to Spotify API. Try again later.");
-    	}
-  	});
-}
 
 $( document ).ready(function() {
-	refreshAccessToken();
+	// refreshAccessToken();
 });
 
 $("button#searchButton").click(function( event ) {
@@ -74,24 +49,13 @@ function sanitizeString(input)
 function search()
 {
 	clearGridCanvas();
-	var currentTime = new Date().getTime();
-	if (currentTime >= token_ttl) {
-		refreshAccessToken();
-	}
 
-	params = {
-		q: sanitizeString($("input").first().val()),
-		type: "track"
-	}
+	var params = {
+		search: sanitizeString($("input").first().val())
+	};
 
-	$.ajaxSetup({
-	   headers:{
-	      'Authorization': "Bearer " + token
-	   }
-	});
-
-	$.get("https://api.spotify.com/v1/search", params, function(data) {
-		processSearchData(data);
+	$.get("/search", params, function(data) {
+		processSearchData(JSON.parse(data));
 	}).fail(function(data) {
 		console.log(data);
 		$("#searchResults").html("Error obtaining search data from Spotify API");
@@ -150,18 +114,12 @@ function updateDisplay()
 
 function requestAudioAnalysis(id)
 {
-	var currentTime = new Date().getTime();
-	if (currentTime >= token_ttl) {
-		refreshAccessToken();
-	}
+	var params = {
+		id: id
+	};
 
-	$.ajaxSetup({
-	   headers:{
-	      'Authorization': "Bearer " + token
-	   }
-	});
-
-	$.get("https://api.spotify.com/v1/audio-analysis/" + id, function(data) {
+	$.get("/get_audio", params, function(data) {
+		data = JSON.parse(data);
 		segments = data["segments"]
 		for (var i = 0; i < segments.length; i++) 
 		{
@@ -178,7 +136,6 @@ function requestAudioAnalysis(id)
 		}
 
 		updateDisplay();
-
 
 	}).fail(function(data) {
 		console.log(data);

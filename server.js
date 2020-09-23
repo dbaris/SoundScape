@@ -146,7 +146,7 @@ http.createServer(function(request, response) {
 
 	}
 	
-}).listen(8080);
+}).listen(process.env.PORT || 8080)
 
 
 // Console will print the message

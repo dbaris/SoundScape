@@ -50,8 +50,15 @@ function search()
 {
 	clearGridCanvas();
 
+	var searchQuery =  sanitizeString($("input").first().val());
+
+	if (searchQuery === "")
+	{
+		return;
+	}
+
 	var params = {
-		search: sanitizeString($("input").first().val())
+		search: searchQuery
 	};
 
 	$.get("/search", params, function(data) {

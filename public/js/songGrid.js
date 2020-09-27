@@ -15,7 +15,7 @@ class SongGrid
 
 	get_num_cols(num_notes)
 	{
-		return Math.sqrt(num_notes / 3);
+		return Math.sqrt(num_notes / 2);
 	}
 	
 	display_as_grid(colors)

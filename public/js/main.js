@@ -157,4 +157,8 @@ $("button#updateColor").click(function( event ) {
 	updateDisplay();
 });
 
+$(window).on('resize', function(){
+      updateDisplay();
+});
+
 

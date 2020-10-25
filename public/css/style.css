@@ -75,6 +75,10 @@ canvas {
 	margin-bottom: 1vh;
 }
 
+#colorMenu {
+	margin-bottom: 1vh;
+}
+
 .search {
 	display: inline-block;
 	padding-left: 5vw;

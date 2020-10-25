@@ -4,7 +4,8 @@ var default_colors = [ "#473230", "#aa2220", "#ce5327", "#ce8b27", "#D3906E", "#
 var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", 
 		         "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
 var colors = default_colors;
-var notes = []
+var notes = [];
+var beginSearch = false;
 
 
 $( document ).ready(function() {
@@ -48,6 +49,7 @@ function sanitizeString(input)
 
 function search()
 {
+	beginSearch = true;
 	clearGridCanvas();
 
 	var searchQuery =  sanitizeString($("input").first().val());
@@ -158,7 +160,10 @@ $("button#updateColor").click(function( event ) {
 });
 
 $(window).on('resize', function(){
-      updateDisplay();
+	if (beginSearch)
+	{
+		updateDisplay();
+	}
 });
 
 

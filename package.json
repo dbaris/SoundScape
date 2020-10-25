@@ -1,7 +1,7 @@
 {
-  "name": "soundgrid",
+  "name": "soundscape",
   "version": "1.0.0",
-  "description": "SoundGrid is a data visualization tool for songs built off the Spotify API, turning the audio experience of music into a visual canvas. Users search for songs, and the corresponding data is analyzed and transposed to a color-coded grid.",
+  "description": "SoundScape is a data visualization tool for songs built off the Spotify API, turning the audio experience of music into a visual canvas. Users search for songs, and the corresponding data is analyzed and transposed to a color-coded grid.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

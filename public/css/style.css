@@ -4,14 +4,15 @@ body {
 	text-align: center;
 	font-family: "Raleway", sans-serif;
 	width: 100vw;
+	margin: 0 auto;
 }
 
 h1 {
 	font-weight: bold;
 	font-size: 6vw;
-	color: #7f384c;
+	color: #b1c4ce;
 	font-family: "Galada", sans-serif;
-	text-shadow: 3px 3px #99879e;
+	text-shadow: 3px 3px #122e3d;
 	margin-bottom: 2vh;
 	margin-top: 2vh;
 }
@@ -39,12 +40,12 @@ footer {
 	background: #d7d8d6;
 	bottom:0;
 	width: 100vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
 	left: 0;
-	height: 8vh;
 	position: fixed;
-	border-top: 1vh solid #99879e;
+}
+
+.footerLink {
+	color: white;
 }
 
 canvas {
@@ -58,6 +59,11 @@ canvas {
 	margin-bottom: 20vh;
 }
 
+#links {
+	background: #b1c4ce;
+	padding-bottom: 2vh;
+	padding-top: 2vh;
+}
 
 #content {
 	padding: 0;
@@ -81,13 +87,19 @@ canvas {
 
 #directions {
 	background: #d7d8d6;
-	width: 60vw;
 	padding-left: 10vw;
 	padding-right: 10vw;
-	margin-left: 10vw;
-	margin-top: 10vh;
 	padding-top: 2vh;
 	padding-bottom: 2vh;
+}
+
+#directionsText {
+	margin-left: 10vw;
+	margin-right: 10vw;
+}
+
+.searchBar {
+	padding: 1vh;
 }
 
 @media only screen and (max-width: 600px) { 

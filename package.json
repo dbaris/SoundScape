@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dbaris/SoundGrid#readme",
   "dependencies": {
-    "axios": "^0.20.0"
+    "axios": ">=0.21.2",
+    "package.json": "^2.0.1"
   }
 }

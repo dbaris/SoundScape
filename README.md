@@ -6,5 +6,9 @@ Spotify song data is broken into segments. Each segment contains a mapping of ho
 
 This app is built using Node.js, JQuery, and Javascript. 
 
+## To Run:
+```npm start```
+
 ## To Do: 
 * Experiment with other display shapes
+
